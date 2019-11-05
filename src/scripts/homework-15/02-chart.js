@@ -60,8 +60,22 @@ function ready(datapoints) {
   yPositionScale.domain(d3.extent(prices))
 
   d3.select('#temp-path').on('stepin', function() {
-    svg.selectAll('path').attr('stroke', 'none')
-    svg.selectAll('circle').attr('fill', 'none')
+    console.log(nested, 'show me the data')
+    svg
+      .selectAll('path-lines')
+      .data(nested)
+      .enter()
+      .append('path')
+      .attr('class', 'path-lines')
+      .attr('class', 'temp-path')
+      .attr('d', function(d) {
+        return line(d.values)
+      })
+      .attr('stroke', function(d) {
+        return colorScale(d.key)
+      })
+      .attr('stroke-width', 2)
+      .attr('fill', 'none')
   })
   d3.select('#temp-step').on('stepin', function() {
     svg.selectAll('path')
@@ -89,7 +103,7 @@ function ready(datapoints) {
       .attr('fill', 'none')
 
     svg.selectAll('temp-path').attr('stroke', 'lightgrey')
-    svg.selectAll('path').attr('stroke', function(d) {
+    svg.selectAll('.temp-path').attr('stroke', function(d) {
       return colorScale(d.key)
     })
     svg.selectAll('temp-circle').attr('fill', 'lightgrey')
@@ -103,21 +117,6 @@ function ready(datapoints) {
       return d.region
     })
     .entries(datapoints)
-
-  svg
-    .selectAll('path')
-    .data(nested)
-    .enter()
-    .append('path')
-    .attr('class', 'temp-path')
-    .attr('d', function(d) {
-      return line(d.values)
-    })
-    .attr('stroke', function(d) {
-      return colorScale(d.key)
-    })
-    .attr('stroke-width', 2)
-    .attr('fill', 'none')
 
   svg
     .selectAll('circle')
@@ -260,7 +259,7 @@ function ready(datapoints) {
       .y(function(d) {
         return yPositionScale(d.price)
       })
-    svg.selectAll('.temp-path').attr('d', function(d) {
+    svg.selectAll('.path-lines').attr('d', function(d) {
       return line(d.values)
     })
 
