@@ -62,6 +62,7 @@ function ready(datapoints) {
     .attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')')
 
   d3.select('#temp-step').on('stepin', function() {
+    console.log('step')
     container.selectAll('path').attr('fill', 'none')
 
     container

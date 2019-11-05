@@ -88,7 +88,38 @@ function ready(datapoints) {
   d3.select('#temp-step1').on('stepin', function() {
     svg.selectAll('path')
   })
-
+  d3.select('#temp-step').on('stepin', function() {
+    svg
+      .selectAll('.temp-path')
+      .attr('stroke', function(d) {
+        if (d.key === 'U.S.') {
+          return 'red'
+        } else {
+          return 'lightgrey'
+        }
+      })
+      .raise()
+    svg
+      .selectAll('.temp-circle')
+      .attr('fill', function(d) {
+        if (d.key === 'U.S.') {
+          return 'red'
+        } else {
+          return 'lightgrey'
+        }
+      })
+      .attr('stroke', 'none')
+    svg
+      .selectAll('.temp-text')
+      .attr('font-weight', 'bold')
+      .attr('fill', function(d) {
+        if (d.key === 'U.S.') {
+          return 'red'
+        } else {
+          return 'lightgrey'
+        }
+      })
+  })
   d3.select('#temp-step4').on('stepin', function() {
     svg
       .selectAll('rect')
