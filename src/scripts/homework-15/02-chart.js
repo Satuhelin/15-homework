@@ -78,7 +78,6 @@ function ready(datapoints) {
       .attr('fill', 'none')
   })
   d3.select('#temp-step').on('stepin', function() {
-    svg.selectAll('path')
     svg.selectAll('.temp-path').attr('stroke', 'lightgrey')
     svg.selectAll('circle')
     svg.selectAll('.temp-circle').attr('fill', 'lightgrey')
@@ -120,6 +119,7 @@ function ready(datapoints) {
         }
       })
   })
+
   d3.select('#temp-step4').on('stepin', function() {
     svg
       .selectAll('rect')
@@ -291,6 +291,9 @@ function ready(datapoints) {
         return yPositionScale(d.price)
       })
     svg.selectAll('.path-lines').attr('d', function(d) {
+      return line(d.values)
+    })
+    svg.selectAll('.temp-path').attr('d', function(d) {
       return line(d.values)
     })
 
